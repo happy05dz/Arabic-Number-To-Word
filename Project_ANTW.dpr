@@ -2,13 +2,13 @@ program Project_ANTW;
 
 uses
   Vcl.Forms,
-  U_Main in 'U_Main.pas' {Form1};
+  U_Main in 'U_Main.pas' {Main_Form};
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
-  Application.CreateForm(TForm1, Form1);
+  Application.CreateForm(TMain_Form, Main_Form);
   Application.Run;
 end.

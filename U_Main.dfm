@@ -1,9 +1,9 @@
-object Form1: TForm1
+object Main_Form: TMain_Form
   Left = 0
   Top = 0
-  Caption = 'Form1'
-  ClientHeight = 301
-  ClientWidth = 489
+  Caption = 'Arabic Number To Word'
+  ClientHeight = 279
+  ClientWidth = 476
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -13,16 +13,16 @@ object Form1: TForm1
   OldCreateOrder = False
   PixelsPerInch = 96
   TextHeight = 13
-  object Button1: TButton
+  object Converters_Button: TButton
     Left = 391
     Top = 70
     Width = 75
     Height = 25
-    Caption = 'Button1'
+    Caption = 'Converter'
     TabOrder = 0
-    OnClick = Button1Click
+    OnClick = Converters_ButtonClick
   end
-  object memo1: TMemo
+  object Words_memo: TMemo
     Left = 8
     Top = 112
     Width = 458
@@ -30,12 +30,20 @@ object Form1: TForm1
     Alignment = taRightJustify
     TabOrder = 1
   end
-  object edit1: TEdit
+  object Numbers_edit: TEdit
     Left = 8
     Top = 32
     Width = 458
     Height = 21
     Alignment = taRightJustify
     TabOrder = 2
+  end
+  object Copy_Button: TButton
+    Left = 296
+    Top = 70
+    Width = 75
+    Height = 25
+    Caption = 'Copy'
+    TabOrder = 3
   end
 end

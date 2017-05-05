@@ -7,11 +7,12 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls;
 
 type
-  TForm1 = class(TForm)
-    Button1: TButton;
-    memo1: TMemo;
-    edit1: TEdit;
-    procedure Button1Click(Sender: TObject);
+  TMain_Form = class(TForm)
+    Converters_Button: TButton;
+    Words_memo: TMemo;
+    Numbers_edit: TEdit;
+    Copy_Button: TButton;
+    procedure Converters_ButtonClick(Sender: TObject);
   private
     { Déclarations privées }
   public
@@ -19,7 +20,7 @@ type
   end;
 
 var
-  Form1: TForm1;
+  Main_Form: TMain_Form;
 
 const
   Separator = (' و ');
@@ -65,7 +66,7 @@ implementation
 
 function Arabic_Number_To_Word(Number: integer) : string;
 var
- NDizaines : integer;
+ NDizaines,NCentaines,NMille : integer;
 begin
   result := '';
 
@@ -75,20 +76,70 @@ begin
     begin
      NDizaines := Number div 10;
       if (Number mod 10 = 0) then
-        Result := arabic10_90[NDizaines] // Manages cases of 20, 30, 40, 50 ... 90
+        Result := arabic10_90[NDizaines] // Manages cases of 10, 20, 30, ... 90
       else
         Result := arabic0_19[Number - NDizaines * 10] +
                   Separator +
                   arabic10_90[NDizaines];
     end;
+    100..999 :
+    begin
+      NCentaines := Number div 100;
+      if (Number mod 100 = 0) then
+        Result := arabic100_900[NCentaines] // Manages cases of 100, 200, 300, ... 900
+      else
+        Result := arabic100_900[NCentaines] + Separator
+          + Arabic_Number_To_Word(Number - NCentaines * 100);
     end;
-  End;
+    1000..999999 :
+    begin
+      NMille := Number div 1000;
+        case NMille of
+        1 :
+        begin
+        if (Number mod 1000 = 0) then
+         Result := arabicGroup[3] // Manages cases of 1000
+        else
+         Result := arabicGroup[3]+ Separator +
+         Arabic_Number_To_Word(Number - NMille * 1000);
+        end;
 
+        2 :
+        begin
+        if (Number mod 1000 = 0) then
+         Result := arabicTwos[3] // Manages cases of 2000
+        else
+         Result := arabicTwos[3]+ Separator +
+         Arabic_Number_To_Word(Number - NMille * 1000);
+        end;
 
+        3..10 :
+        begin
+        if (Number mod 1000 = 0) then
+         Result := Arabic_Number_To_Word(NMille) + ' ' + arabicPluralGroups[1] // Manages cases of 3000 ... 10000
+        else
+         Result := Arabic_Number_To_Word(NMille) + ' ' + arabicPluralGroups[1] + Separator +
+         Arabic_Number_To_Word(Number - NMille * 1000);
+        end;
 
-procedure TForm1.Button1Click(Sender: TObject);
+        11..999 :
+        begin
+        if (Number mod 1000 = 0) then
+         Result := Arabic_Number_To_Word(NMille) + ' ' + arabicGroup[3] // Manages cases of 11000 ... 999000
+        else
+         Result := Arabic_Number_To_Word(NMille) + ' ' + arabicGroup[3] + Separator +
+         Arabic_Number_To_Word(Number - NMille * 1000);
+        end;
+
+      end;
+
+    end;
+  end;
+End;
+
+procedure TMain_Form.Converters_ButtonClick(Sender: TObject);
 begin
-memo1.text := Arabic_Number_To_Word(strtoint(edit1.text));
+Words_memo.text := Arabic_Number_To_Word(strtoint(Numbers_edit.text));
 end;
 
 end.
