@@ -14,7 +14,7 @@ object Main_Form: TMain_Form
   PixelsPerInch = 96
   TextHeight = 13
   object Converters_Button: TButton
-    Left = 391
+    Left = 393
     Top = 70
     Width = 75
     Height = 25
@@ -45,5 +45,6 @@ object Main_Form: TMain_Form
     Height = 25
     Caption = 'Copy'
     TabOrder = 3
+    OnClick = Copy_ButtonClick
   end
 end
