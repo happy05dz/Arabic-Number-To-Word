@@ -45,13 +45,13 @@ const
   arabicPluralGroups: array[1..7] of string = (
     'آلاف','ملايين','مليارات', 'تريليونات', 'كوادريليونات', 'كوينتليونات','سكستيليونات');
 
-function Arabic_Number_To_Word(Number: integer) : string;
+function Arabic_Number_To_Word(Number: Longint) : string;
 
 implementation
 
-function Arabic_Number_To_Word(Number: integer) : string;
+function Arabic_Number_To_Word(Number: Longint) : string;
 var
- NDozens, NHundreds, NThousands, NMillions, NMilliers : integer;
+ NDozens, NHundreds, NThousands, NMillions, NMilliers : Longint;
 begin
   result := '';
 
@@ -163,6 +163,10 @@ begin
         end;
       end;
     end;
+        {Manages cases of 1000000000}
+    1000000000 : Result := arabicGroup[5];
+     {follows ... soon ...}
+
   end;
 End;
 
